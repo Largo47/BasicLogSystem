@@ -5,4 +5,4 @@ from .models import *
 admin.site.register(IssueBin)
 admin.site.register(Issue)
 admin.site.register(Log)
-admin.site.register(Line)
+admin.site.register(Occurrence)

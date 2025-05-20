@@ -3,16 +3,7 @@ import os
 
 
 class IssueBin(models.Model):
-    latest_issue = models.IntegerField(default=0)
-
-    def CreateIssueFromFile(self, path):
-        # Take a log from file and either create a new issue for it or add it to existing one
-        raw_file = open(path, "r", errors="ignore").readlines()
-        # Figured that missing a character here or there is not that big of a deal
-        # considering the purpose of this is human analysis anyway
-        filtered_log = self.filterLog(raw_file)
-        raw_log = '\n'.join(filtered_log)  # tbc
-        return 0
+    project_name = models.CharField(max_length=20)
 
     @staticmethod
     def filterLog(log, tags=['rror:', 'arning:'], stack_tags=['failed.', 'allstack']):
@@ -47,32 +38,32 @@ class Issue(models.Model):
         "Suspended": "Suspended"
     }
     status = models.CharField(choices=STATUS_OPTIONS, default="Open")   # We'll see if that works
+    log_raw = models.TextField()
 
     @staticmethod
-    def retRelatedIssue(log, IssueBinId = 1):
-        allLogs = Log.objects.all()
-        for record in allLogs:
+    def retRelatedIssue(log):
+        allIssues = Issue.objects.all()
+        for record in allIssues:
             if record.log_raw == log:
                 return record.id
-        newIssue = Issue(project=IssueBin.objects.get(id=IssueBinId))
-        newIssue.save()
-        return newIssue.id
+        return -1
+
+    def addOccurrence(self):
+        time = Occurrence(Issue=self)
+        time.save()
+
 
 class Log(models.Model):
     Issue = models.ForeignKey(Issue, on_delete=models.CASCADE)
-    log_time = models.DateTimeField()
-    log_raw = models.TextField()
-
-    def __str__(self):
-        return str(self.log_raw)
-
-
-class Line(models.Model):
-    Log = models.ForeignKey(Log, on_delete=models.CASCADE)
     line_number = models.IntegerField()
     line_raw = models.TextField()
 
     def __str__(self):
-        return '#'+str(self.line_number)+' '+str(self.line_raw)
+        return str(self.line_number) + ": " + str(self.line_raw)
+
+
+class Occurrence(models.Model):
+    Issue = models.ForeignKey(Issue, on_delete=models.CASCADE)
+    creation_time = models.DateTimeField(auto_now_add=True, editable=False)
 
 #EOF

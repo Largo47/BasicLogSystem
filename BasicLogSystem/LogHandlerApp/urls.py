@@ -9,6 +9,7 @@ urlpatterns = [
 
     path('get/ticket/', views.getTickets, name='Get data'),
     path('get/log/', views.getLogs, name='Get data'),
+    path('get/Occ/', views.getOccurrence, name='Get data'),
     path('post/ticket/', views.addTicket, name='Add Ticket'),
     path('post/log/', views.addLog, name='Add Log'),
 ]

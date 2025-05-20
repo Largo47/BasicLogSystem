@@ -8,6 +8,12 @@ class IssueSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class OccurrenceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Occurrence
+        fields = '__all__'
+
+
 class LogSerializer(serializers.ModelSerializer):   # I'm probably only going to need this one
     class Meta:
         model = Log
