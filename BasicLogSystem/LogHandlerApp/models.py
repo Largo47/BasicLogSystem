@@ -5,10 +5,6 @@ import os
 class IssueBin(models.Model):
     latest_issue = models.IntegerField(default=0)
 
-    def UpdateIssues(self, log):
-        # Check if existing raw log matches any of the existing tickets.
-        return 0
-
     def CreateIssueFromFile(self, path):
         # Take a log from file and either create a new issue for it or add it to existing one
         raw_file = open(path, "r", errors="ignore").readlines()
@@ -19,7 +15,7 @@ class IssueBin(models.Model):
         return 0
 
     @staticmethod
-    def filterLog(log, tags=['error:', 'warning:'], stack_tags=['failed.', 'callstack']):
+    def filterLog(log, tags=['rror:', 'arning:'], stack_tags=['failed.', 'allstack']):
         # Take log a list of lines and find the ones with relevant substrings.
         # If specific substring indicating start of a call stack found, put the rest of the file in
         ret = {}
@@ -50,13 +46,21 @@ class Issue(models.Model):
         "Resolved": "Resolved",
         "Suspended": "Suspended"
     }
-
     status = models.CharField(choices=STATUS_OPTIONS, default="Open")   # We'll see if that works
 
+    @staticmethod
+    def retRelatedIssue(log, IssueBinId = 1):
+        allLogs = Log.objects.all()
+        for record in allLogs:
+            if record.log_raw == log:
+                return record.id
+        newIssue = Issue(project=IssueBin.objects.get(id=IssueBinId))
+        newIssue.save()
+        return newIssue.id
 
 class Log(models.Model):
     Issue = models.ForeignKey(Issue, on_delete=models.CASCADE)
-    log_time = models.DateField()
+    log_time = models.DateTimeField()
     log_raw = models.TextField()
 
     def __str__(self):
