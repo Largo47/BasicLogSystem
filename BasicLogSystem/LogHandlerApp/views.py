@@ -49,7 +49,8 @@ def addTicket(request):
 
 @api_view(['POST'])
 @parser_classes([TextParser])
-def addLog(request, binID=IssueBin.objects.get(id=1)):
+def addLog(request, bin_name):
+    binID = IssueBin.objects.getIssueBin.objects.get(name=bin_name)
     data = IssueBin.filterLog(str(request.data, encoding="utf-8").split('\n'))  # Get a list of relevant lines
     raw_log = '\n'.join(data.values())
     ref = Issue.retRelatedIssue(raw_log)

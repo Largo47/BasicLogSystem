@@ -1,18 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      {% block title %}
-        Django App
-      {% endblock %}
-    </title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"  rel="stylesheet" />
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">My Django App</a>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %} Basic Log Managment v1 {% endblock %}</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"  rel="stylesheet" />
+<style type="text/css">
+body{margin:40px auto;max-width:950px;line-height:line-height:1.6;font-size:18px;color:#453;padding:0 10px}h1,h2,h3{line-height:1.2}
+</style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Basic Log Managment v1</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
@@ -20,16 +18,30 @@
             <a class="nav-link" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="#">Tickets</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="#">APIs</a>
           </li>
         </ul>
       </div>
     </nav>
-    <div class="container">{% block content %} {% endblock %}</div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" ></script>
-  </body>
+
+<h2>{% block subtitle %} Basic Log Managment v1 {% endblock %}</h2>
+
+<p>{% block content %} {% endblock %}</p>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" ></script>
+
+<!--
+<ul>
+<li>Shit's <em>still</em> lightweight and loads fast</li>
+<li><em>Still</em> fits on all your shitty screens</li>
+<li><em>Still</em> looks the same in all your shitty browsers</li>
+<li>The motherfucker's <em>still</em> accessible to every asshole that visits your site</li>
+<li>Shit's <em>still</em> legible and gets your fucking point across</li>
+</ul>
+-->
+
+</body>
 </html>

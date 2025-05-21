@@ -3,13 +3,12 @@ from . import views
 
 urlpatterns = [
     path("", views.home, name="home"),
-    path("<int:id>", views.ticket, name="ticket"),
+    path("ticket/<int:id>", views.ticket, name="ticket"),
 
     ##### APIs ######
 
-    path('get/ticket/', views.getTickets, name='Get data'),
-    path('get/log/', views.getLogs, name='Get data'),
-    path('get/Occ/', views.getOccurrence, name='Get data'),
-    path('post/ticket/', views.addTicket, name='Add Ticket'),
-    path('post/log/', views.addLog, name='Add Log'),
+    path('api/ticket/get/', views.getTickets, name='Get data'),
+    path('api/log/get/', views.getLogs, name='Get data'),
+    path('api/ticket/post/', views.addTicket, name='Add Ticket'),
+    path('api/log/post/', views.addLog, name='Add Log'),
 ]
