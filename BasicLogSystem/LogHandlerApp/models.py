@@ -5,6 +5,9 @@ import os
 class IssueBin(models.Model):
     project_name = models.CharField(max_length=20)
 
+    def __str__(self):
+        return str(self.project_name)
+
     @staticmethod
     def filterLog(log, tags=['rror:', 'arning:'], stack_tags=['failed.', 'allstack']):
         # Take log a list of lines and find the ones with relevant substrings.
@@ -37,8 +40,11 @@ class Issue(models.Model):
         "Resolved": "Resolved",
         "Suspended": "Suspended"
     }
-    status = models.CharField(choices=STATUS_OPTIONS, default="Open")   # We'll see if that works
+    status = models.CharField(choices=STATUS_OPTIONS, max_length=20, default="Open")   # We'll see if that works
     log_raw = models.TextField()
+
+    def __str__(self):
+        return str(self.project) + " #" + str(self.id)
 
     @staticmethod
     def retRelatedIssue(log):

@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = get_secret('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -74,19 +74,12 @@ WSGI_APPLICATION = 'BasicLogSystem.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# Change DATABASES to connect to a real database
 DB_NAME = get_secret("DB_NAME")
 DB_USER_NM = get_secret("DB_USER_NM")
 DB_USER_PW = get_secret("DB_USER_PW")
 DB_IP = get_secret("DB_IP")
 DB_PORT = get_secret("DB_PORT")
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-"""
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -97,7 +90,6 @@ DATABASES = {
         "PORT": DB_PORT,
     }
 }
-"""
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
