@@ -10,5 +10,5 @@ urlpatterns = [
     path('api/ticket/get/', views.getTickets, name='Get data'),
     path('api/log/get/', views.getLogs, name='Get data'),
     path('api/ticket/post/', views.addTicket, name='Add Ticket'),
-    path('api/log/post/', views.addLog, name='Add Log'),
+    path('api/<str:bin_name>/log/post/', views.addLog, name='Add Log'),
 ]
