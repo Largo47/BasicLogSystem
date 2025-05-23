@@ -2,6 +2,12 @@ from rest_framework import serializers
 from .models import *
 
 
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = IssueBin
+        fields = '__all__'
+
+
 class IssueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Issue

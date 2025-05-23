@@ -18,6 +18,11 @@ def ticket(request, id):
 
 ###########APIs###################
 
+@api_view(['GET'])
+def getProject(request):
+    events = IssueBin.objects.all()
+    serializer = ProjectSerializer(events, many=True)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def getTickets(request):
@@ -42,6 +47,13 @@ def getOccurrence(request):
 @api_view(['POST'])
 def addTicket(request):
     serializer = IssueSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def addProject(request):
+    serializer = ProjectSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)

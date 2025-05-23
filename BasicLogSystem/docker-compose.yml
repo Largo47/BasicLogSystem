@@ -1,0 +1,30 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+    - "8000:8080"
+    tty: True
+    environment:
+      - PIPELINE=production
+      - SECRET_KEY=production
+      - DB_NAME=build_log_db
+      - DB_USER_NM=postgres
+      - DB_USER_PW=toor
+      - DB_IP=db
+      - DB_PORT=5432
+    depends_on:
+    - db
+  db:
+   image: bitnami/postgresql:latest
+   volumes:
+     - ./postgresql:/bitnami/postgresql
+   ports:
+     - "5432:5432"
+   environment:
+    - POSTGRESQL_PASSWORD=toor
+    - POSTGRESQL_USERNAME=postgres
+    - POSTGRESQL_DATABASE=build_log_db
+networks:
+  service_network:
+
