@@ -10,9 +10,10 @@ services:
       - SECRET_KEY=production
       - DB_NAME=build_log_db
       - DB_USER_NM=postgres
-      - DB_USER_PW=toor
+      - DB_USER_PW=toor   #change before deploying in prod
       - DB_IP=db
       - DB_PORT=5432
+      - DJANGO_SUPERUSER_PASSWORD=toor  #change before deploying in prod
     depends_on:
     - db
   db:
@@ -22,7 +23,7 @@ services:
    ports:
      - "5432:5432"
    environment:
-    - POSTGRESQL_PASSWORD=toor
+    - POSTGRESQL_PASSWORD=toor   #change before deploying in prod
     - POSTGRESQL_USERNAME=postgres
     - POSTGRESQL_DATABASE=build_log_db
 networks:
