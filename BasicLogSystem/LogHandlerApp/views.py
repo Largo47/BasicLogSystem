@@ -12,9 +12,22 @@ import datetime
 def home(request):
     return render(request, "home.html")
 
+def api(request):
+    return render(request, "api.html")
 
-def ticket(request, id):
-    args = Issue.objects.get(id=id)
+def projects(request):
+    args = IssueBin.objects.all()
+    return render(request, "projects.html", {"args": args})
+
+
+def project_tickets(request, bin_name):
+    args = IssueBin.objects.get(project_name=bin_name).issue_set.all()
+    name = IssueBin.objects.get(project_name=bin_name).project_name
+    return render(request, "project_tickets.html", {"args": args, "name": name})
+
+
+def ticket(request, issue_id, bin_name):
+    args = IssueBin.objects.get(project_name=bin_name).issue_set.get(id=issue_id)
     return render(request, "ticket.html", {"args": args})
 
 ###########APIs###################

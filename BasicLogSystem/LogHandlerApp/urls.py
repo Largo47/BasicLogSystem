@@ -3,10 +3,10 @@ from . import views
 
 urlpatterns = [
     path("", views.home, name="home"),
-    path("ticket/<int:id>", views.ticket, name="ticket"),  ####to do: trash
-    #path("projects", views.projects, name="All projects"),
-    #path("projects/<str:bin_name>/", views.project_tickets, name="Project"),
-    #path("projects/<str:bin_name>/Tickets/<int:ticket_id>", views.ticket, name="Issue"),
+    path("api/", views.api, name="api list"),
+    path("projects/", views.projects, name="All projects"),
+    path("projects/<str:bin_name>/", views.project_tickets, name="Project"),
+    path("projects/<str:bin_name>/issues/<int:issue_id>", views.ticket, name="Issue"),
 
     ##### APIs ######
     path('api/projects', views.RestProjects, name='Projects'),

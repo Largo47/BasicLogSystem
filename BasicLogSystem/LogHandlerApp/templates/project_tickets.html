@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %} Project {{name}} issues {% endblock %}
+
+{% block content %}
+<h2>Pick a ticket</h2>
+<ul>
+    {% for ticket in args %}
+        <li><a href="/projects/{{ name }}/issues/{{ ticket.id }}">{{name}}_{{ ticket.id }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

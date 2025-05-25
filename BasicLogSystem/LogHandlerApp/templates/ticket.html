@@ -18,7 +18,7 @@ table, th, td {
     <th>{{ args.status }}</th>
   </tr>
   </table>
-    {% for log in args.log_set.all %}
-        <p>{{ log.log_raw }}</p>
-    {% endfor %}
+  {% for log in args.log_set.all %}
+    <p>{{ log.log_raw }}</p>
+  {% endfor %}
 {% endblock %}
