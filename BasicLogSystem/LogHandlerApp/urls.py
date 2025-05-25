@@ -3,15 +3,17 @@ from . import views
 
 urlpatterns = [
     path("", views.home, name="home"),
-    path("ticket/<int:id>", views.ticket, name="ticket"),
+    path("ticket/<int:id>", views.ticket, name="ticket"),  ####to do: trash
+    #path("projects", views.projects, name="All projects"),
+    #path("projects/<str:bin_name>/", views.project_tickets, name="Project"),
+    #path("projects/<str:bin_name>/Tickets/<int:ticket_id>", views.ticket, name="Issue"),
 
     ##### APIs ######
-
-    path('api/ticket/get/', views.getTickets, name='Get data'),
-    path('api/log/get/', views.getLogs, name='Get data'),
-    path('api/project/get/', views.getProject, name='Get Project'),
-
-    path('api/project/post/', views.addProject, name='Add Project'),
-    path('api/ticket/post/', views.addTicket, name='Add Ticket'),
-    path('api/<str:bin_name>/log/post/', views.addLog, name='Add Log'),
+    path('api/projects', views.RestProjects, name='Projects'),
+    path('api/projects/<str:bin_name>/issues', views.RestIssues, name='Ticket'),
+    path('api/projects/<str:bin_name>/issues/<int:issue_id>', views.RestIssueByID, name='Ticket'),
+    path('api/projects/<str:bin_name>/issues/<int:issue_id>/logs', views.RestLog, name='Logs'),
+    path('api/projects/<str:bin_name>/issues/<int:issue_id>/logs/<int:log_id>', views.RestLogByID, name='Logs'),
+    path('api/projects/<str:bin_name>/issues/<int:issue_id>/logs/<int:log_id>/datetime', views.RestLogByID_time, name='Logs'),
+    path('api/projects/<str:bin_name>/issues/<int:issue_id>/logs/<int:log_id>/line', views.RestLogByID_line, name='Logs'),
 ]
