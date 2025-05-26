@@ -35,7 +35,7 @@ All the data is stored in postgres database (or sqlite3 in development)
 Ingestion method compares raw logs and if it finds a match in the database, it simply adds a record of new occurrence rather than creating more tickets and logs  
 - [X] Web Interfacev
 There is a website. It's a bit basic, but it provides all the necessary funcionalities.  
-- [/] RESTful API  
+- [] RESTful API  
 I got most of them and some extra. One missing is filtering by status.   
 Moreover, due to the way data is structured (logs/lines don't store time individually), datetime retrieved from them is the same for entire ticket.  
 
@@ -98,8 +98,9 @@ Use docker-compose stop/start to restart the service.
 ## Running (Local)
 ```
 (.venv) <root_folder>\BasicLogSystem>python manage.py runserver
-Open "http://127.0.0.1:8000/" in you web browser.
 ```
+Open "http://127.0.0.1:8000/" in you web browser.
+
 ## Webpages
 
 
