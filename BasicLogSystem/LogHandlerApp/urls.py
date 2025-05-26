@@ -1,3 +1,5 @@
+from django.conf.urls.static import static
+from django.conf import settings
 from django.urls import path
 from . import views
 
@@ -16,4 +18,4 @@ urlpatterns = [
     path('api/projects/<str:bin_name>/issues/<int:issue_id>/logs/<int:log_id>', views.RestLogByID, name='Logs'),
     path('api/projects/<str:bin_name>/issues/<int:issue_id>/logs/<int:log_id>/datetime', views.RestLogByID_time, name='Logs'),
     path('api/projects/<str:bin_name>/issues/<int:issue_id>/logs/<int:log_id>/line', views.RestLogByID_line, name='Logs'),
-]
+]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

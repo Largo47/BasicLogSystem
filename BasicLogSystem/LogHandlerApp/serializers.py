@@ -29,3 +29,9 @@ class LogSerializer(BaseModelSerializer):
     class Meta:
         model = Log
         fields = '__all__'
+
+
+class LogFileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LogFile
+        fields = '__all__'

@@ -2,23 +2,30 @@
 {% block title %} Ticket #{{ args.id }} {% endblock %}
 
 {% block content %}
-<p> <h2> Ticket #{{ args.id }}</h2></p>(
+<p> <h2> Ticket #{{ args.id }}</h2></p>
 <style>
 table, th, td {
-  border:1px solid black;
+  border:2px solid green;
 }
 </style>
 <body>
-
-<h2>Logs</h2>
-
-<table style="width:100%">
-  <tr>
-    <th>STATUS</th>
-    <th>{{ args.status }}</th>
-  </tr>
-  </table>
-  {% for log in args.log_set.all %}
-    <p>{{ log.log_raw }}</p>
-  {% endfor %}
-{% endblock %}
+  <table style="width:100%">
+    <tr>
+      <th>Status</th>
+      <th>{{ args.status }}</th>
+    </tr>
+    <tr>
+      <th>Occurrence</th>
+      <th>
+        {% for log in args.occurrence_set.all %}
+          {{ log.creation_time }}<br>
+        {% endfor %}
+      </th>
+    </tr>
+    </table>
+  <h2>Logs</h2>
+    {% for log in args.log_set.all %}
+      <p>{{ log.line_number }}:<br> {{ log.line_raw }}</p>
+    {% endfor %}
+  {% endblock %}
+</body>

@@ -5,6 +5,8 @@ services:
     ports:
     - "8000:8080"
     tty: True
+    networks:
+      - service_network
     environment:
       - PIPELINE=production
       - SECRET_KEY=production
@@ -20,6 +22,8 @@ services:
    image: bitnami/postgresql:latest
    volumes:
      - ./postgresql:/bitnami/postgresql
+   networks:
+    - service_network
    ports:
      - "5432:5432"
    environment:

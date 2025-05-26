@@ -10,7 +10,7 @@ class IssueBin(models.Model):
 
     @staticmethod
     def filterLog(log, tags=['rror:', 'arning:'], stack_tags=['failed.', 'allstack']):
-        # Take log a list of lines and find the ones with relevant substrings.
+        # Takes log as list of lines and find the ones with relevant substrings.
         # If specific substring indicating start of a call stack found, put the rest of the file in
         ret = {}
         line_counter = 0
@@ -71,5 +71,18 @@ class Log(models.Model):
 class Occurrence(models.Model):
     Issue = models.ForeignKey(Issue, on_delete=models.CASCADE)
     creation_time = models.DateTimeField(auto_now_add=True, editable=False)
+
+
+class LogFile(models.Model):
+    file = models.FileField(upload_to="uploaded_log_files/")
+
+    @staticmethod
+    def getLogFromFile(file):
+        f = open(file, 'r', encoding="utf-8")
+        ret = f.readlines()
+        f.close()
+        return ret
+
+
 
 #EOF
