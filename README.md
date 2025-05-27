@@ -66,7 +66,8 @@ For **local**, just modify BasicLogSystem/BasicLogSystem/settings/local.py
 For **"production"**, it's BasicLogSystem/BasicLogSystem/settings/production.py 
 To run in production, you need to set env.Pipeline to "production". This is set by default by docker-compose in the provided configuration. 
 There are also enviroment variables set in docker-compose file that you can change before launch.  
-**Make sure to change default credentials listed there before making this public.**  
+> [!CAUTION]
+>Make sure to change default credentials listed there before making this public.**  
 
 ## Running ("Production")
 
@@ -111,7 +112,14 @@ Open "http://127.0.0.1:8000/" in you web browser.
 ```
 ## Webpages
 
-
+**""**, Home page with basic information  
+**admin/** Admin panel (Django provided boilerplate)
+**"api/"**  API reference
+**"projects/"**  Listing of all the existing projects  
+**"projects/project_name/"** listing of all the tickets attached to a project  
+**"projects/project_name/issues/issue_id/"**  Information about a specif ticket  
+> [!TIP]
+> Every page has a navigation bar at the top, with links to main sections
 
 
 ## API Endpoints
