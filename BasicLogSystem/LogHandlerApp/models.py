@@ -8,6 +8,14 @@ class IssueBin(models.Model):
     def __str__(self):
         return str(self.project_name)
 
+
+    def retRelatedIssue(self, log):
+        allIssues = self.issue_set.all()
+        for record in allIssues:
+            if record.log_raw == log:
+                return record.id
+        return -1
+
     @staticmethod
     def filterLog(log, tags=['rror:', 'arning:'], stack_tags=['failed.', 'allstack']):
         # Takes log as list of lines and find the ones with relevant substrings.
@@ -38,6 +46,7 @@ class Issue(models.Model):
         "Open": "Open",
         "In progress": "In progress",
         "Resolved": "Resolved",
+        "Closed": "Closed",
         "Suspended": "Suspended"
     }
     status = models.CharField(choices=STATUS_OPTIONS, max_length=20, default="Open")   # We'll see if that works
@@ -45,14 +54,6 @@ class Issue(models.Model):
 
     def __str__(self):
         return str(self.project) + " #" + str(self.id)
-
-    @staticmethod
-    def retRelatedIssue(log):
-        allIssues = Issue.objects.all()
-        for record in allIssues:
-            if record.log_raw == log:
-                return record.id
-        return -1
 
     def addOccurrence(self):
         time = Occurrence(Issue=self)

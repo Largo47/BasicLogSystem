@@ -57,6 +57,10 @@ def RestIssues(request, bin_name, filename=None):
         if request.content_type == "text/plain; charset=utf-8":
             data = IssueBin.filterLog(str(request.data, encoding="utf-8").split('\n'))  # Get a list of relevant lines
         elif request.content_type == "application/json":
+            #serializer = IssueSerializer(data=request.data)
+            #if serializer.is_valid():
+                #serializer.save()
+            #return Response(serializer.data)
             data = IssueBin.filterLog(json.loads(str(request.data).encode('unicode-escape').decode()).log_raw).split('\n')
             # there is some formating issue here
         elif request.content_type == "*/*":  # and filename != None:
@@ -65,7 +69,7 @@ def RestIssues(request, bin_name, filename=None):
         else:
             return Response("Incorrect data in request")
         raw_log = '\n'.join(data.values())
-        ref = Issue.retRelatedIssue(raw_log)
+        ref = binID.retRelatedIssue(raw_log)
         if ref == -1:
             newIssue = Issue(project=binID, log_raw=raw_log)
             newIssue.save()
@@ -101,7 +105,7 @@ def RestIssueByID(request, bin_name, issue_id):
 
 @api_view(['GET'])
 def RestLog(request, bin_name, issue_id):
-    item = Log.objects.all()
+    item = Issue.objects.get(id=issue_id).log_set.all()
     serializer = LogSerializer(item, many=True)
     return Response(serializer.data)
 

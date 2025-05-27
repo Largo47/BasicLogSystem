@@ -9,7 +9,7 @@ key information, and offering functionalities for managing and retrieving analys
 + When new log is ingested, a ticket (Issue), connected to a project(IssueBin) is created. Data is split into lines, filtered for relevant ones and each new Log object is linked to a ticket.  
 + However, before ticket is created, methods checks if a ticket linked to the same project with the same raw log doesn't alread exist in the database.  
 + If that is the case, new occurrence object is created (storing current datetime) and attached to the existing ticket  
-+ Webinterface allows to list of the projects, list all the tickets linked to each project and view specific tickets and it's components (status, occurrences, logs)
++ Webinterface allows to list of the projects, list all the tickets linked to each project and view specific tickets and it's components (status (Open, In progress, Resolved, Closed, Suspended), occurrences, logs)
 
 
 ## Goal Checklist
@@ -106,27 +106,33 @@ Open "http://127.0.0.1:8000/" in you web browser.
 
 
 ## API Endpoints
-**'api/projects'; ['GET', 'POST'];List or Add all the projects**  
-JSON: {"project_name": "codename"}
+**'api/projects'; ['GET', 'POST']; List or Add all the projects**  
+Invoke-RestMethod -Uri http://127.0.0.1:8000/api/projects -Method Post -ContentType "application/json" -body '{"project_name": "codename"}'
+curl http://127.0.0.1:8000/api/projects
   
-**'api/projects/<bin_name>/issues'; ['GET', 'POST']; List or add issues**    
-plain text; utf-8:  "Warning: just the log in plain text"  
-*/*: { "file":"C://Users//PC//Desktop//Zadanie//logs//log3.log" }  
-JSON: { "status": "Open", "log_raw":"Warning: just the log in plain text" },  
+**'api/projects/<bin_name>/issues'; ['GET', 'POST']; List or add issues**  
+curl http://127.0.0.1:8000/api/projects/codename/issues  
+Invoke-RestMethod -Uri http://127.0.0.1:8000/api/projects/codename/issues -Method Post -ContentType "text/plain; charset=utf-8" -body 'Warning: just the log in plain text'   
+Invoke-RestMethod -Uri http://127.0.0.1:8000/api/projects/codename/issues -Method Post -ContentType "*/*" -body '{ "file":"C://Users//PC//Desktop//Zadanie//logs//log3.log" }'  
 
-**'api/projects/<bin_name>/issues/<int:issue_id>'; ['GET', 'DELETE', 'PATCH']; Get, delete or update specific issue**  
-PATCH: {"status": "Open",}  
+**'api/projects/<bin_name>/issues/<issue_id>'; ['GET', 'DELETE', 'PATCH']; Get, delete or update status of a specific issue**  
+curl http://127.0.0.1:8000/api/projects/codename/issues/27  
+Invoke-RestMethod -Uri http://127.0.0.1:8000/api/projects/codename/issues/27 -Method PATCH -ContentType "application/json" -body '{ "status": "Resolved"}'  
+Invoke-RestMethod -Uri http://127.0.0.1:8000/api/projects/codename/issues/28 -Method DELETE   
   
-**'api/projects/<bin_name>/issues/<int:issue_id>/logs'; ['GET']; Get all logs from specific issue**  
-       
-**'api/projects/<bin_name>/issues/<int:issue_id>/logs/\<int:log_id\>'; ['GET'];Get specific logs from specific issue**  
-
-**'api/projects/<bin_name>/issues/<int:issue_id>/logs/<int:log_id>/datetime'; ['GET']; Get creation time of an identified log**  
-    
-**'api/projects/<bin_name>/issues/<int:issue_id>/logs/<int:log_id>/line'; ['GET']; Get line number of a specific log**  
-
-
+**'api/projects/<bin_name>/issues/<issue_id>/logs'; ['GET']; Get all logs from specific issue**  
+curl http://127.0.0.1:8000/api/projects/codename/issues/27/logs  
+  
+**'api/projects/<bin_name>/issues/<issue_id>/logs/\<log_id>a'; ['GET']; Get specific logs from specific issue**  
+curl http://127.0.0.1:8000/api/projects/codename/issues/27/logs/4910  
+  
+**'api/projects/<bin_name>/issues/<issue_id>/logs/<log_id>/datetime'; ['GET']; Get creation time of an identified log**  
+curl http://127.0.0.1:8000/api/projects/codename/issues/27/logs/4910/datetime    
+  
+**'api/projects/<bin_name>/issues/<issue_id>/logs/<log_id>/line'; ['GET']; Get line number of a specific log**  
+curl http://127.0.0.1:8000/api/projects/codename/issues/27/logs/4910/line   
 
 ## To do/possible improvements
-+ Security (login, ssl)
-+ Bugfixes to ingestion.
++ Security! (login, ssl)
++ Bugfixes to JSON ingestion.
++ Unit Testing

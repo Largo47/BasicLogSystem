@@ -1,5 +1,35 @@
 {% extends "base.html" %}
 {% block title %} API innit? {% endblock %}
 {% block content %}
-<p> Description of api endpoints, links potentially </p>
+<style type="text/css">
+body{margin:30px auto;max-width:2000px;line-height:line-height:1.2;font-size:18px;color:#453;padding:0 10px}h1,h2,h3{line-height:1.0}
+</style>
+<h1> API Endpoints </h1>
+<p>
+<h4>'api/projects'; ['GET', 'POST']; List or Add all the projects</h4><br>
+curl http://127.0.0.1:8000/api/projects<br>
+ Invoke-RestMethod -Uri http://127.0.0.1:8000/api/projects -Method Post -ContentType "application/json" -body '{"project_name": "codename"}'<br>
+<br>
+ <h4>'api/projects/project_name/issues'; ['GET', 'POST']; List or add issues</h4> <br>
+curl http://127.0.0.1:8000/api/projects/codename/issues<br>
+Invoke-RestMethod -Uri http://127.0.0.1:8000/api/projects/codename/issues -Method Post -ContentType "text/plain; charset=utf-8" -body 'Warning: just the log in plain text'<br>
+Invoke-RestMethod -Uri http://127.0.0.1:8000/api/projects/codename/issues -Method Post -ContentType "*/*" -body '{ "file":"C://Users//PC//Desktop//Zadanie//logs//log3.log" }'<br>
+<br>
+<h4>'api/projects/project_name/issues/issue_id'; ['GET', 'DELETE', 'PATCH']; Get, delete or update status of a specific issue </h4> <br>
+curl http://127.0.0.1:8000/api/projects/codename/issues/27<br>
+Invoke-RestMethod -Uri http://127.0.0.1:8000/api/projects/codename/issues/27 -Method PATCH -ContentType "application/json" -body '{ "status": "Resolved"}'</h4><br>
+Invoke-RestMethod -Uri http://127.0.0.1:8000/api/projects/codename/issues/28 -Method DELETE <br>
+ <br>
+<h4>'api/projects/project_name/issues/issue_id/logs'; ['GET']; Get all logs from specific issue</h4><br>
+curl http://127.0.0.1:8000/api/projects/codename/issues/27/logs<br>
+ <br>
+<h4>'api/projects/project_name/issues/issue_id/logs/log_id'; ['GET']; Get specific logs from specific issue</h4><br>
+curl http://127.0.0.1:8000/api/projects/codename/issues/27/logs/4910 
+
+<h4>'api/projects/project_name/issues/issue_id/logs/log_id/datetime'; ['GET']; Get creation time of an identified log</h4><br>
+curl http://127.0.0.1:8000/api/projects/codename/issues/27/logs/4910/datetime  <br>
+ <br>  
+<h4>'api/projects/project_name/issues/issue_id/logs/log_id/line'; ['GET']; Get line number of a specific log</h4> <br>
+curl http://127.0.0.1:8000/api/projects/codename/issues/27/logs/4910/line 
+</p>
 {% endblock %}
