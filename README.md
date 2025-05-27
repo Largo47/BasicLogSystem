@@ -62,23 +62,32 @@ Run commands listed below, from implied locations.
 ```
 
 ## Configuration 
-For **local**, just modify BasicLogSystem/BasicLogSystem/settings/local.py
-For **"production"**, it's BasicLogSystem/BasicLogSystem/settings/production.py
-There are also enviroment variables set in docker-compose file that you can change before launch. 
-**Make sure to change default passwords listed there before making this public.**
+For **local**, just modify BasicLogSystem/BasicLogSystem/settings/local.py  
+For **"production"**, it's BasicLogSystem/BasicLogSystem/settings/production.py 
+To run in production, you need to set env.Pipeline to "production". This is set by default by docker-compose in the provided configuration. 
+There are also enviroment variables set in docker-compose file that you can change before launch.  
+**Make sure to change default credentials listed there before making this public.**  
 
 ## Running ("Production")
 
 To start the service, open command line in the cloned repo and run:
 ```
 <root_folder>>cd BasicLogSystem
-(linux only)<root_folder>\BasicLogSystem>chmod +w postgres  
+(linux only)<root_folder>\BasicLogSystem>chmod 776 postgres  
+```
+Postgres needs to be able to write in postgres folder.  
+If you don't care about mounting the docker drive, you can just remove line below from the file
+```
+   volumes:
+     - ./postgres:/bitnami/postgresql
+```
+To contiune, build docker-compose
+```
 <root_folder>\BasicLogSystem>docker-compose up
 ```
-postgres needs to be albe to write in the folder
 
 Now, wait docker-compose to complete. 
-Specifically, for postregs to return
+Specifically, for postregs to return:
 ```
 LOG:  database system is ready to accept connections
 ```
@@ -87,8 +96,8 @@ Now, open another console in <repo_root>/BasicLogSystem and run
 docker exec basiclogsystem-web-1 bash entrypoint.sh
 ```
 
-If, for one reason or another, you container is not named "basiclogsystem-web-1", change the command to use proper name or dockerID.
-I tried to get this script to run during as an entrpoint during composing, but due to postgres liking to restart itself a couple of times before it actuall starts working, 
+If, for one reason or another, you container is not named "basiclogsystem-web-1" (it should be default), change the command to use proper name or dockerID.  
+I tried to get this script to run as an entrypoint during composing, but due to postgres liking to restart itself a couple of times before it actuall starts working, 
 I couldn't get it to work reliably. Regardless, you only need to do it during initial setup. 
 
 If everthing went without error, you can go to <host_ip>:8000 and you should be able to see the home page.

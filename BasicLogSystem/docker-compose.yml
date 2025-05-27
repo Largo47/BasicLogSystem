@@ -8,10 +8,10 @@ services:
     networks:
       - service_network
     environment:
-      - PIPELINE=production
-      - SECRET_KEY=production
+      - PIPELINE=production   #change before deploying in prod
+      - SECRET_KEY=production  #change before deploying in prod
       - DB_NAME=build_log_db
-      - DB_USER_NM=postgres
+      - DB_USER_NM=postgres #change before deploying in prod
       - DB_USER_PW=toor   #change before deploying in prod
       - DB_IP=db
       - DB_PORT=5432
@@ -21,14 +21,14 @@ services:
   db:
    image: bitnami/postgresql:latest
    volumes:
-     - ./postgresql:/bitnami/postgresql
+     - ./postgres:/bitnami/postgresql
    networks:
     - service_network
    ports:
      - "5432:5432"
    environment:
     - POSTGRESQL_PASSWORD=toor   #change before deploying in prod
-    - POSTGRESQL_USERNAME=postgres
+    - POSTGRESQL_USERNAME=postgres #change before deploying in prod
     - POSTGRESQL_DATABASE=build_log_db
 networks:
   service_network:
